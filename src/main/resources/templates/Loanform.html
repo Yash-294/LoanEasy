@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- _____________________________________________FAV ICON________________________________________________________________ -->
+	<link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+	<!-- _____________________________________________FONT(AWESOME)___________________________________________________________ -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+	<!-- _____________________________________________FONT(GOOGLE FONT ROBOTO)________________________________________________ -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+	<!-- _____________________________________________CSS_____________________________________________________________________ -->
+	<link rel="stylesheet" href="/css/mdb.min.css" />	
+	<link rel="stylesheet" type="text/css" href="https://mdbootstrap.com/api/snippets/static/download/MDB5-Free_6.0.1/css/mdb.min.css">
+	<!-- _____________________________________________GOOGLE ICONS____________________________________________________________ -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<!-- _____________________________________________JAVASCRIPT LINKS________________________________________________________ -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/backend.js"></script>
+	<title>Apply for Loan</title>
+	<meta charset="ISO-8859-1">
+	<style>
+		p {
+			color:red;
+			font-size:12px;
+			display:flex;
+			margin: 0 0 0 0;
+		}
+		.formback {
+			padding-bottom: 10px;
+			border-radius: 8px;
+			background:linear-gradient(180deg,#02475E 6%,#D2D0FE 6%);
+			text-align: center;
+		}
+		
+		.fieldback {
+			background: white;
+			border-radius: 4px;
+		}
+		
+		body {
+			background-color: #fbfbfb;
+		}
+		
+		@media ( min-width : 991.98px) {
+			main {
+				padding-left: 240px;
+			}
+		}
+		
+		/* Sidebar */
+		.sidebar {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			padding: 58px 0 0; /* Height of navbar */
+			box-shadow: 0 2px 5px 0 rgb(0 0 0/ 5%), 0 2px 10px 0 rgb(0 0 0/ 5%);
+			width: 240px;
+			z-index: 600;
+		}
+		
+		@media ( max-width : 991.98px) {
+			.sidebar {
+				width: 100%;
+			}
+		}
+		
+		.sidebar .active {
+			border-radius: 5px;
+			box-shadow: 0 2px 5px 0 rgb(0 0 0/ 16%), 0 2px 10px 0 rgb(0 0 0/ 12%);
+		}
+		
+		.sidebar-sticky {
+			position: relative;
+			top: 0;
+			height: calc(100vh - 48px);
+			padding-top: 0.5rem;
+			overflow-x: hidden;
+			overflow-y: auto;
+			/* Scrollable contents if viewport is shorter than content. */
+		}
+		
+		.nav-custom {
+			background-color: #00303F;
+		}
+		
+		.navbar-text.active {
+			background-color: #FF7800;
+			border-radius: 7px;
+			color: black;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		
+		.navbar-text {
+			color: #CDAC81;
+		}
+		
+		.navbar-text:hover {
+			background-color: #CAE4DB;
+			border-radius: 7px;
+			color: black;
+		}
+		.material-symbols-outlined {
+			font-variation-settings: 'FILL' 1, 'wght' 800, 'GRAD' 1, 'opsz' 48;
+			vertical-align: middle;
+		}
+		
+		.bank {
+			color: #CDAC81;
+		}
+		
+		.bank:hover {
+			color: #F5F4F4;
+		}
+		
+		INPUT:-webkit-autofill, SELECT:-webkit-autofill, TEXTAREA:-webkit-autofill
+			{
+			animation-name: onautofillstart
+		}
+		
+		INPUT:not(:-webkit-autofill), SELECT:not(:-webkit-autofill), TEXTAREA:not(:-webkit-autofill)
+			{
+			animation-name: onautofillcancel
+		}
+		
+		@keyframes onautofillstart {}
+		
+		@keyframes onautofillcancel {}
+		
+				
+		.invalid{
+			color: red;
+		}
+		.accept{
+			color: #3BB143;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<!-- ________________________________________SIDEBAR______________________________________________ -->
+		<nav id="sidebarMenu"
+			class="collapse d-lg-block sidebar collapse nav-custom">
+			<div class="position-sticky">
+				<div class="list-group list-group-flush mx-3 mt-4">
+					<a th:href="@{/dashboard}" class="py-2 ripple navbar-text"> <i
+						class="material-symbols-outlined" style="margin-right: 14px;">team_dashboard</i>
+						<span>Dashboard</span></a> <a href="#"
+						class="py-2 ripple navbar-text active" aria-current="true"> <i
+						class="material-symbols-outlined me-3" style="margin-right: 14px;">description</i>
+						<span>Apply For Loan</span>
+					</a> <a class="py-2 ripple navbar-text"> <i
+						class="material-symbols-outlined me-3" style="margin-right: 14px;">analytics</i>
+						<span>Loan Tracker</span>
+					</a> <a href="#" class="py-2 ripple navbar-text"> <i
+						class="material-symbols-outlined me-3" style="margin-right: 14px;">lock</i>
+						<span>Change Password</span></a>
+				</div>
+			</div>
+		</nav>
+		<!-- ________________________________________NAVBAR________________________________________ -->
+		<nav class="navbar navbar-expand-lg nav-custom fixed-top">
+			<div class="container">
+				<!-- Toggle button -->
+				<!-- Toggle button -->
+				<button class="navbar-toggler" type="button"
+					data-mdb-toggle="collapse"
+					data-mdb-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<i class="material-symbols-outlined"></i>
+				</button>
+		<!-- ________________________________________LEFT ELEMENTS________________________________________ -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<a class="navbar-brand mt-2 mt-lg-0" th:href="@{/}"> <span
+						class="material-symbols-outlined bank active">account_balance</span>
+					</a>
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link fw-bold navbar-text"
+							href="#">About</a></li>
+						<li class="nav-item"><a class="nav-link fw-bold navbar-text"
+							th:href="@{/login}">Register/Login</a></li>
+						<li class="nav-item"><a class="nav-link fw-bold navbar-text"
+							href="#">Contact </a></li>
+					</ul>
+		<!-- ________________________________________RIGHT ELEMENTS________________________________________ -->
+					<div class="d-flex align-items-center">
+						<a class="me-3 twitter" href="https://twitter.com/" rel="nofollow"
+							target="_blank"> <i class="fab fa-twitter fa-lg"></i>
+						</a>
+						<a class="me-3 github" href="https://github.com/" rel="nofollow"
+							target="_blank"> <i class="fab fa-github fa-lg"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<main style="margin-top: 74px; width: 1655px; margin-left: 13px;">
+			<!-- ________________________________________LOAN FORM________________________________________ -->
+		<form th:object="${loanform}" method=post th:action="@{/loanform/submit}" enctype="multipart/form-data">
+			<div class="formback">
+				<!-- ________________________________________PERSONAL DETAILS________________________________________- -->
+				<label style="font-weight: 400;margin-bottom: 7px;color: white;font-size: x-large;padding-top: 4px;">Personal Details</label>
+				<div class="container" style="padding-top:30px;padding-left:0px;">
+					<div class="row mt-3">
+						<!-- ________________________________________PHOTO INPUT________________________________________---- -->
+						<div class="col-2" style="padding-left:0px;">
+							<div id="ddbox1" class="fieldback" style="border: 0.5px solid lightsteelblue; width: 180px; height: 200px;max-width:180px;align-items:center;justify-content:center;padding-top:65px;">
+								<input type="file" id="passphoto" name="passphoto" accept="image/png,image/jpg,image/jpeg" style="display:none;" onchange="showImage(this);" >
+								<label for="passphoto" id="imagelabel1" style="cursor:pointer;">								
+									Click here & <br> Add a Passport Size Photo
+								</label>
+								<label for="passphoto" id="imagelabel2" style="cursor:pointer;">
+									<img id="imagebox1" src="#" >
+								</label>
+							</div>
+							<p th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></p>
+						</div>
+						<!-- ________________________________________FIRST NAME INPUT________________________________________ -->
+						<div class="col">
+							<div class="row ">
+								<div class="col" >
+									<div class="form-outline fieldback">
+										<input type="text" id="form6Example1" class="form-control" th:field="*{firstname}" onblur="validateNames()" readonly required>
+										<label class="form-label" for="form6Example1">First name</label>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 70.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+									
+									<p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></p>
+								</div>
+								<!-- ________________________________________MIDDLE NAME INPUT_________________________________________ -->
+								<div class="col">
+									<div class="form-outline fieldback">
+										<input type="text" id="form6Example2" class="form-control" th:field="*{middlename}" onblur="validateNames()" required>
+										<label class="form-label" for="form6Example2">Middle name</label>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 85.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+									<p th:if="${#fields.hasErrors('middlename')}" th:errors="*{middlename}"></p>
+								</div>
+								<!-- ________________________________________LAST NAME INPUT________________________________________ -->
+								<div class="col" style="padding-right:0px;">
+									<div class="form-outline fieldback">
+										<input type="text" id="form6Example3" class="form-control" th:field="*{lastname}" onblur="validateNames()" readonly required>
+										<label class="form-label" for="form6Example3">Last name</label>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 70.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+									<p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></p>
+								</div>
+							</div>
+							<!-- ________________________________________ADDRESS INPUT________________________________________ -->
+							<div class="row mt-4" >
+								<div class="col col-lg-8" style="width:749px;margin-right:21px;">
+									<div class="form-outline fieldback">
+										<textarea cols="42" rows="10" id="form6Example4" class="form-control" th:field="*{address}" style="height:140px;resize:none;" onblur="validateAddress()" required></textarea>
+										<label class="form-label" for="form6Example4">Address</label>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 55.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+									<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+								</div>
+								<!-- ________________________________________STATE INPUT________________________________________ -->
+								<div class="col">
+									<div class="row">
+										<div class="form-outline fieldback">
+											<input id="hidden_ip" class="form-control active" style="display:none" th:field="*{state}" >
+											<label for="hidden_ip" class="form-label" id="state_label" style="color:#656870">State</label>
+											<select id="form6Example5" class="form-control" style="color:#656870;padding-left:0;" onfocus="labelColorChange1()" onblur="labelColorChange2()" onchange="changeListValueColor()">
+												<option value=""selected disabled hidden>Choose State</option>
+												<option value="Andhra Pradesh">Andhra Pradesh</option>
+												<option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+												<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+												<option value="Assam">Assam</option>
+												<option value="Bihar">Bihar</option>
+												<option value="Chandigarh">Chandigarh</option>
+												<option value="Chhattisgarh">Chhattisgarh</option>
+												<option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+												<option value="Daman and Diu">Daman and Diu</option>
+												<option value="Delhi">Delhi</option>
+												<option value="Lakshadweep">Lakshadweep</option>
+												<option value="Puducherry">Puducherry</option>
+												<option value="Goa">Goa</option>
+												<option value="Gujarat">Gujarat</option>
+												<option value="Haryana">Haryana</option>
+												<option value="Himachal Pradesh">Himachal Pradesh</option>
+												<option value="Jammu and Kashmir">Jammu and Kashmir</option>
+												<option value="Jharkhand">Jharkhand</option>
+												<option value="Karnataka">Karnataka</option>
+												<option value="Kerala">Kerala</option>
+												<option value="Madhya Pradesh">Madhya Pradesh</option>
+												<option value="Maharashtra">Maharashtra</option>
+												<option value="Manipur">Manipur</option>
+												<option value="Meghalaya">Meghalaya</option>
+												<option value="Mizoram">Mizoram</option>
+												<option value="Nagaland">Nagaland</option>
+												<option value="Odisha">Odisha</option>
+												<option value="Punjab">Punjab</option>
+												<option value="Rajasthan">Rajasthan</option>
+												<option value="Sikkim">Sikkim</option>
+												<option value="Tamil Nadu">Tamil Nadu</option>
+												<option value="Telangana">Telangana</option>
+												<option value="Tripura">Tripura</option>
+												<option value="Uttar Pradesh">Uttar Pradesh</option>
+												<option value="Uttarakhand">Uttarakhand</option>
+												<option value="West Bengal">West Bengal</option>
+											</select>
+											<div class="form-notch">
+												<div class="form-notch-leading" style="width: 6px"></div>
+												<div class="form-notch-middle" style="width: 45.8px"></div>
+												<div class="form-notch-trailing" style="width: 15px"></div>
+											</div>
+										</div>
+										<p th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></p>
+									</div>
+									<!-- ________________________________________DISTRICT INPUT________________________________________- -->
+									<div class="row">
+										<div class="form-outline fieldback mt-3">
+											<input type="text" id="form6Example6" style="padding-left:0;" th:field="*{district}" class="form-control" onblur="validateNames()" required>
+											<label class="form-label" for="form6Example6">District</label>
+											<div class="form-notch">
+												<div class="form-notch-leading" style="width: 6px"></div>
+												<div class="form-notch-middle" style="width: 55.8px"></div>
+												<div class="form-notch-trailing" style="width: 15px"></div>
+											</div>
+										</div>
+										<p th:if="${#fields.hasErrors('district')}" th:errors="*{district}"></p>
+									</div>
+									<!-- ________________________________________PINCODE INPUT________________________________________ -->
+									<div class="row">
+										<div class="form-outline fieldback mt-3">
+											<input type="text" id="form6Example7" class="form-control" style="padding-left:0;" th:field="*{pincode}" onblur="validateNums()" required>
+											<label class="form-label" for="form6Example7">Pincode</label>
+											<div class="form-notch">
+												<div class="form-notch-leading" style="width: 6px"></div>
+												<div class="form-notch-middle" style="width: 55.8px"></div>
+												<div class="form-notch-trailing" style="width: 15px"></div>
+											</div>
+										</div>
+										<p th:if="${#fields.hasErrors('pincode')}" th:errors="*{pincode}"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<!-- ________________________________________EMAIL INPUT________________________________________ -->
+							<div class="form-outline fieldback mt-4" style="width:290px;">
+								<input type="email" id="form6Example8" class="form-control" th:field="*{email}" onblur="validateEmail()" readonly required>
+								<label class="form-label" for="form6Example8">Email</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 42.8px"></div>
+									<div class="form-notch-trailing" style="width: 15px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+						</div>
+						<div class="col">
+							<!-- ________________________________________AADHAR INPUT________________________________________ -->
+							<div class="form-outline fieldback mt-4" style="width:290px;">
+								<input type="tel" id="form6Example9" class="form-control" th:field="*{aadharno}" onblur="validateNums()" required>
+								<label class="form-label" for="form6Example9">Aadhar Number</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 102.8px"></div>
+									<div class="form-notch-trailing" style="width: 15px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('aadharno')}" th:errors="*{aadharno}"></p>
+						</div>
+						<div class="col">
+							<!-- ________________________________________PHONE INPUT________________________________________ -->
+							<div class="form-outline fieldback mt-4" style="width:293px;">
+								<input type="tel" id="form6Example10" class="form-control" th:field="*{phone}" onblur="validateNums()" required>
+								<label class="form-label" for="form6Example10">Phone Number</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 100.8px"></div>
+									<div class="form-notch-trailing" style="width: 15px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+						</div>
+						<div class="col" style="padding-right:0px;">
+							<!-- ________________________________________ALTERNATE PHONE INPUT________________________________________ -->
+							<div class="form-outline fieldback mt-4" style="width:340px;">
+								<input type="tel" id="form6Example11" class="form-control" th:field="*{altphone}" onblur="validateNums()" required>
+								<label class="form-label" for="form6Example11">Alternate Phone Number</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 157.8px"></div>
+									<div class="form-notch-trailing" style="width: 15px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('altphone')}" th:errors="*{altphone}"></p>
+						</div>
+					</div>
+				</div>
+				<!-- ________________________________________PROFESSIONAL DETAILS________________________________________- -->
+				<div style="background:#02475E;margin-top:25px;margin-bottom: 43px;height: 50px;">
+					<label style="color:white;font-size: x-large;padding-top:5px;">Professional Details</label>
+				</div>
+				<div class="container">
+					<div class="row">
+						<!-- ________________________________________COMPANY NAME INPUT________________________________________- -->
+						<div class="col">
+							<div class="form-outline fieldback">
+								<input type="text" id="form6Example12" class="form-control" th:field="*{company}" onblur="validateAddress()" required>
+								<label class="form-label" for="form6Example12">Company name</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 100.8px"></div>
+									<div class="form-notch-trailing" style="width: 25px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('company')}" th:errors="*{company}"></p>
+						</div>
+						<!-- ________________________________________ANNUAL SALARY INPUT________________________________________ -->
+						<div class="col">
+							<div class="form-outline fieldback">
+								<input type="text" id="form6Example13" class="form-control" th:field="*{salaryperannum}" onblur="validateNums()" required>
+								<label class="form-label" for="form6Example13">Annual Salary</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 95.8px"></div>
+									<div class="form-notch-trailing" style="width: 25px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('salaryperannum')}" th:errors="*{salaryperannum}"></p>
+						</div>
+					</div>
+					<div class="row">
+						<!-- ________________________________________DESIGNATION INPUT________________________________________ -->
+						<div class="col">
+							<div class="form-outline fieldback mt-4">
+								<input type="text" id="form6Example14" class="form-control" th:field="*{designation}" onblur="validateAddress()" required>
+								<label class="form-label" for="form6Example14">Designation</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 100.8px"></div>
+									<div class="form-notch-trailing" style="width: 25px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}"></p>
+						</div>
+						<!-- ________________________________________CREDIT SCORE INPUT________________________________________ -->
+						<div class="col">
+							<div class="form-outline fieldback mt-4">
+								<input type="text" id="form6Example15" class="form-control" th:field="*{credscore}" onblur="validateNums()" required>
+								<label class="form-label" for="form6Example15">Credit Score</label>
+								<div class="form-notch">
+									<div class="form-notch-leading" style="width: 6px"></div>
+									<div class="form-notch-middle" style="width: 95.8px"></div>
+									<div class="form-notch-trailing" style="width: 25px"></div>
+								</div>
+							</div>
+							<p th:if="${#fields.hasErrors('credscore')}" th:errors="*{credscore}"></p>
+						</div>
+					</div>
+				</div>
+				<!-- ________________________________________IDENTITY VERIFICATION________________________________________ -->
+				<div style="background:#02475E;margin-top:40px;margin-bottom: 43px;height: 50px;">
+					<label style="color:white;font-size: x-large;padding-top:5px;">Identity Verification</label>
+				</div>
+				<div class="container" style="padding-bottom:20px;">
+					<div class="row">
+						<!-- ________________________________________AADHAR CARD INPUT________________________________________ -->
+						<div class="col-2" style="padding-left:0px;">
+							<div id="ddbox2" class="fieldback" style="border: 0.5px solid lightsteelblue; width: 400px; height: 200px;max-width:500px;align-items:center;justify-content:center;padding-top:65px;">
+								<input type="file" id="aadharphoto" name="aadharphoto" accept="image/png,image/jpg,image/jpeg" style="display:none;" onchange="showAadharImage(this);" >
+								<label for="aadharphoto" id="aadharlabel1" style="cursor:pointer;">Click here & <br> Add Aadhar Card</label>
+								<label for="aadharphoto" id="aadharlabel2" style="cursor:pointer;">
+									<img id="imagebox2" src="#" >
+								</label>
+							</div>
+							<p th:if="${#fields.hasErrors('aadhardata')}" th:errors="*{aadhardata}"></p>
+						</div>
+						<!-- ________________________________________PANCARD INPUT________________________________________ -->
+						<div class="col-2" style="padding-left:240px;padding-right:447px;">
+							<div id="ddbox3" class="fieldback" style="border: 0.5px solid lightsteelblue; width: 400px; height: 200px;max-width:500px;align-items:center;justify-content:center;padding-top:65px;">
+								<input type="file" id="panphoto" name="panphoto" accept="image/png,image/jpg,image/jpeg" style="display:none;" onchange="showPancardImage(this);" >
+								<label for="panphoto" id="panlabel1" style="cursor:pointer;">Click here & <br> Add Pancard</label>
+								<label for="panphoto" id="panlabel2" style="cursor:pointer;">
+									<img id="imagebox3" src="#" >
+								</label>
+							</div>
+							<p th:if="${#fields.hasErrors('pancarddata')}" style="width:175px;" th:errors="*{pancarddata}"></p>
+						</div>
+						<!-- ________________________________________INCOME CERTIFICATE INPUT________________________________________ -->
+						<div class="col-2">
+							<div id="ddbox4" class="fieldback" style="border: 0.5px solid lightsteelblue; width: 400px; height: 200px;max-width:500px;align-items:center;justify-content:center;padding-top:65px;">
+								<input type="file" id="incomephoto" name="incomephoto" accept="image/png,image/jpg,image/jpeg" style="display:none;" onchange="showIncomeImage(this);" >
+								<label for="incomephoto" id="incomelabel1" style="cursor:pointer;">Click here to <br> Add Income Certificate</label>
+								<label for="incomephoto" id="incomelabel2" style="cursor:pointer;">
+									<img id="imagebox4" src="#" >
+								</label>
+							</div>
+							<p th:if="${#fields.hasErrors('incomedata')}" th:errors="*{incomedata}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ________________________________________SUBMIT BUTTON________________________________________- -->
+			<button type="submit" class="btn btn-primary btn-block mb-4" style="margin-top:20px;">Submit</button>
+		</form>
+	</main>
+</body>
+</html>

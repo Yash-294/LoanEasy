@@ -1,0 +1,488 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- _____________________________________________FAV ICON________________________________________________________________ -->
+<link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+<!-- _____________________________________________FONT(AWESOME)___________________________________________________________ -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+<!-- _____________________________________________FONT(GOOGLE FONT ROBOTO)________________________________________________ -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" />
+<!-- _____________________________________________CSS_____________________________________________________________________ -->
+<link rel="stylesheet" href="/css/mdb.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://mdbootstrap.com/api/snippets/static/download/MDB5-Free_6.0.1/css/mdb.min.css">
+<!-- _____________________________________________GOOGLE ICONS____________________________________________________________ -->
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<!-- _____________________________________________JAVASCRIPT LINKS________________________________________________________ -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/backend.js"></script>
+<title>Apply for Loan</title>
+<meta charset="ISO-8859-1">
+<style>
+.formback {
+	padding-bottom: 10px;
+	border-radius: 8px;
+	background: linear-gradient(180deg, #02475E 6%, #D2D0FE 6%);
+	text-align: center;
+}
+
+.fieldback {
+	background: white;
+	border-radius: 4px;
+}
+
+body {
+	background-color: #fbfbfb;
+}
+
+@media ( min-width : 991.98px) {
+	main {
+		padding-left: 240px;
+	}
+}
+
+/* Sidebar */
+.sidebar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	padding: 58px 0 0; /* Height of navbar */
+	box-shadow: 0 2px 5px 0 rgb(0 0 0/ 5%), 0 2px 10px 0 rgb(0 0 0/ 5%);
+	width: 240px;
+	z-index: 600;
+}
+
+@media ( max-width : 991.98px) {
+	.sidebar {
+		width: 100%;
+	}
+}
+
+.sidebar .active {
+	border-radius: 5px;
+	box-shadow: 0 2px 5px 0 rgb(0 0 0/ 16%), 0 2px 10px 0 rgb(0 0 0/ 12%);
+}
+
+.sidebar-sticky {
+	position: relative;
+	top: 0;
+	height: calc(100vh - 48px);
+	padding-top: 0.5rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+	/* Scrollable contents if viewport is shorter than content. */
+}
+
+.nav-custom {
+	background-color: #00303F;
+}
+
+.navbar-text.active {
+	background-color: #FF7800;
+	border-radius: 7px;
+	color: black;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.navbar-text {
+	color: #CDAC81;
+}
+
+.navbar-text:hover {
+	background-color: #CAE4DB;
+	border-radius: 7px;
+	color: black;
+}
+
+.material-symbols-outlined {
+	font-variation-settings: 'FILL' 1, 'wght' 800, 'GRAD' 1, 'opsz' 48;
+	vertical-align: middle;
+}
+
+.bank {
+	color: #CDAC81;
+}
+
+.bank:hover {
+	color: #F5F4F4;
+}
+
+INPUT:-webkit-autofill, SELECT:-webkit-autofill, TEXTAREA:-webkit-autofill
+	{
+	animation-name: onautofillstart
+}
+
+INPUT:not(:-webkit-autofill), SELECT:not(:-webkit-autofill), TEXTAREA:not(:-webkit-autofill)
+	{
+	animation-name: onautofillcancel
+}
+
+@
+keyframes onautofillstart {
+	
+}
+
+@
+keyframes onautofillcancel {
+	
+}
+
+.invalid {
+	color: red;
+}
+
+.accept {
+	color: #3BB143;
+}
+</style>
+</head>
+<body>
+	<!-- ________________________________________LOAN FORM________________________________________ -->
+	<form th:object="${loanform}" method=post
+		th:action="@{/loanform/submit}" enctype="multipart/form-data">
+		<div class="formback">
+			<!-- ________________________________________PERSONAL DETAILS________________________________________- -->
+			<label
+				style="font-weight: 400; margin-bottom: 7px; color: white; font-size: x-large; padding-top: 4px;">Personal
+				Details</label>
+			<div class="container" style="padding-top: 30px; padding-left: 0px;">
+				<div class="row ">
+					<!-- ________________________________________PHOTO INPUT________________________________________---- -->
+					<div class="col-2" style="padding-left: 0px;">
+						<div id="ddbox1" class="fieldback"
+							style="border: 0.5px solid lightsteelblue; width: 180px; height: 200px; max-width: 180px; align-items: center; justify-content: center; padding-top: 65px;">
+							<input type="file" id="passphoto" name="passphoto"
+								accept="image/png,image/jpg,image/jpeg" style="display: none;"
+								onchange="showImage(this);" required> <label
+								for="passphoto" id="imagelabel1" style="cursor: pointer;">
+								Click here & <br> Add a Passport Size Photo
+							</label> <label for="passphoto" id="imagelabel2" style="cursor: pointer;">
+								<img id="imagebox1" src="#">
+							</label>
+						</div>
+					</div>
+					<!-- ________________________________________FIRST NAME INPUT________________________________________ -->
+					<div class="col">
+						<div class="row mb-4">
+								<div class="form-outline fieldback">
+									<input type="text" id="form6Example1" class="form-control"
+										th:field="*{firstname}" onblur="validateNames()" required>
+									<label class="form-label" for="form6Example1">First
+										name</label>
+									<div class="form-notch">
+										<div class="form-notch-leading" style="width: 6px"></div>
+										<div class="form-notch-middle" style="width: 70.8px"></div>
+										<div class="form-notch-trailing" style="width: 15px"></div>
+									</div>
+								</div>
+						</div>
+							<!-- ________________________________________MIDDLE NAME INPUT_________________________________________ -->
+						<div class="row mb-4">
+								<div class="form-outline fieldback">
+									<input type="text" id="form6Example2" class="form-control"
+										th:field="*{middlename}" onblur="validateNames()" required>
+									<label class="form-label" for="form6Example2">Middle
+										name</label>
+									<div class="form-notch">
+										<div class="form-notch-leading" style="width: 6px"></div>
+										<div class="form-notch-middle" style="width: 85.8px"></div>
+										<div class="form-notch-trailing" style="width: 15px"></div>
+									</div>
+								</div>
+						</div>
+							<!-- ________________________________________LAST NAME INPUT________________________________________ -->
+						<div class="row mb-4">
+								<div class="form-outline fieldback">
+									<input type="text" id="form6Example3" class="form-control"
+										th:field="*{lastname}" onblur="validateNames()" required>
+									<label class="form-label" for="form6Example3">Last name</label>
+									<div class="form-notch">
+										<div class="form-notch-leading" style="width: 6px"></div>
+										<div class="form-notch-middle" style="width: 70.8px"></div>
+										<div class="form-notch-trailing" style="width: 15px"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ________________________________________ADDRESS INPUT________________________________________ -->
+						<div class="row">
+							<div class="col col-lg-8">
+								<div class="form-outline fieldback mb-4">
+									<textarea cols="40" rows="10" id="form6Example4"
+										class="form-control" th:field="*{address}"
+										style="height: 140px; resize: none;"
+										onblur="validateAddress()" required></textarea>
+									<label class="form-label" for="form6Example4">Address</label>
+									<div class="form-notch">
+										<div class="form-notch-leading" style="width: 6px"></div>
+										<div class="form-notch-middle" style="width: 55.8px"></div>
+										<div class="form-notch-trailing" style="width: 15px"></div>
+									</div>
+								</div>
+							</div>
+							<!-- ________________________________________STATE INPUT________________________________________ -->
+							<div class="col">
+								<div class="row">
+									<div class="form-outline fieldback mb-3">
+										<input id="form6Example5" class="form-control"
+											list="stateList" th:field="*{state}" onblur="validateNames()"
+											required> <label class="form-label"
+											for="form6Example5">State</label>
+										<datalist id="stateList">
+											<option>Andhra Pradesh</option>
+											<option>Andaman and Nicobar Islands</option>
+											<option>Arunachal Pradesh</option>
+											<option>Assam</option>
+											<option>Bihar</option>
+											<option>Chandigarh</option>
+											<option>Chhattisgarh</option>
+											<option>Dadar and Nagar Haveli</option>
+											<option>Daman and Diu</option>
+											<option>Delhi</option>
+											<option>Lakshadweep</option>
+											<option>Puducherry</option>
+											<option>Goa</option>
+											<option>Gujarat</option>
+											<option>Haryana</option>
+											<option>Himachal Pradesh</option>
+											<option>Jammu and Kashmir</option>
+											<option>Jharkhand</option>
+											<option>Karnataka</option>
+											<option>Kerala</option>
+											<option>Madhya Pradesh</option>
+											<option>Maharashtra</option>
+											<option>Manipur</option>
+											<option>Meghalaya</option>
+											<option>Mizoram</option>
+											<option>Nagaland</option>
+											<option>Odisha</option>
+											<option>Punjab</option>
+											<option>Rajasthan</option>
+											<option>Sikkim</option>
+											<option>Tamil Nadu</option>
+											<option>Telangana</option>
+											<option>Tripura</option>
+											<option>Uttar Pradesh</option>
+											<option>Uttarakhand</option>
+											<option>West Bengal</option>
+										</datalist>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 45.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+								</div>
+								<!-- ________________________________________DISTRICT INPUT________________________________________- -->
+								<div class="row">
+									<div class="form-outline fieldback mb-3">
+										<input type="text" id="form6Example6" th:field="*{district}"
+											class="form-control" onblur="validateNames()" required>
+										<label class="form-label" for="form6Example6">District</label>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 55.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+								</div>
+								<!-- ________________________________________PINCODE INPUT________________________________________ -->
+								<div class="row">
+									<div class="form-outline fieldback">
+										<input type="text" id="form6Example7" class="form-control"
+											th:field="*{pincode}" onblur="validateNums()"> <label
+											class="form-label" for="form6Example7">Pincode</label>
+										<div class="form-notch">
+											<div class="form-notch-leading" style="width: 6px"></div>
+											<div class="form-notch-middle" style="width: 55.8px"></div>
+											<div class="form-notch-trailing" style="width: 15px"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<!-- ________________________________________EMAIL INPUT________________________________________ -->
+						<div class="form-outline fieldback mb-4">
+							<input type="email" id="form6Example8" class="form-control"
+								th:field="*{email}" onblur="validateEmail()" required> <label
+								class="form-label" for="form6Example8">Email</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 42.8px"></div>
+								<div class="form-notch-trailing" style="width: 15px"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<!-- ________________________________________AADHAR INPUT________________________________________ -->
+						<div class="form-outline fieldback mb-4">
+							<input type="tel" id="form6Example9" class="form-control"
+								th:field="*{aadharno}" onblur="validateNums()"> <label
+								class="form-label" for="form6Example9">Aadhar Number</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 102.8px"></div>
+								<div class="form-notch-trailing" style="width: 15px"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<!-- ________________________________________PHONE INPUT________________________________________ -->
+						<div class="form-outline fieldback mb-4">
+							<input type="tel" id="form6Example10" class="form-control"
+								th:field="*{phone}" onblur="validateNums()"> <label
+								class="form-label" for="form6Example10">Phone Number</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 100.8px"></div>
+								<div class="form-notch-trailing" style="width: 15px"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col" style="padding-right: 0px;">
+						<!-- ________________________________________ALTERNATE PHONE INPUT________________________________________ -->
+						<div class="form-outline fieldback mb-4">
+							<input type="tel" id="form6Example11" class="form-control"
+								th:field="*{altphone}" onblur="validateNums()"> <label
+								class="form-label" for="form6Example11">Alternate Phone
+								Number</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 157.8px"></div>
+								<div class="form-notch-trailing" style="width: 15px"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<!-- ________________________________________PROFESSIONAL DETAILS________________________________________- -->
+			<div
+				style="background: #02475E; margin-top: 10px; margin-bottom: 43px; height: 50px;">
+				<label style="color: white; font-size: x-large; padding-top: 5px;">Professional
+					Details</label>
+			</div>
+			<div class="container">
+				<div class="row">
+					<!-- ________________________________________COMPANY NAME INPUT________________________________________- -->
+					<div class="col">
+						<div class="form-outline fieldback mb-4">
+							<input type="text" id="form6Example12" class="form-control"
+								th:field="*{company}" onblur="validateAddress()" required>
+							<label class="form-label" for="form6Example12">Company
+								name</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 100.8px"></div>
+								<div class="form-notch-trailing" style="width: 25px"></div>
+							</div>
+						</div>
+					</div>
+					<!-- ________________________________________ANNUAL SALARY INPUT________________________________________ -->
+					<div class="col">
+						<div class="form-outline fieldback mb-4">
+							<input type="text" id="form6Example13" class="form-control"
+								th:field="*{salaryperannum}" onblur="validateNums()"> <label
+								class="form-label" for="form6Example13">Annual Salary</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 95.8px"></div>
+								<div class="form-notch-trailing" style="width: 25px"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<!-- ________________________________________DESIGNATION INPUT________________________________________ -->
+					<div class="col">
+						<div class="form-outline fieldback mb-4">
+							<input type="text" id="form6Example14" class="form-control"
+								th:field="*{designation}" onblur="validateAddress()" required>
+							<label class="form-label" for="form6Example14">Designation</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 100.8px"></div>
+								<div class="form-notch-trailing" style="width: 25px"></div>
+							</div>
+						</div>
+					</div>
+					<!-- ________________________________________CREDIT SCORE INPUT________________________________________ -->
+					<div class="col">
+						<div class="form-outline fieldback mb-4">
+							<input type="text" id="form6Example15" class="form-control"
+								th:field="*{credscore}" onblur="validateNums()"> <label
+								class="form-label" for="form6Example15">Credit Score</label>
+							<div class="form-notch">
+								<div class="form-notch-leading" style="width: 6px"></div>
+								<div class="form-notch-middle" style="width: 95.8px"></div>
+								<div class="form-notch-trailing" style="width: 25px"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ________________________________________IDENTITY VERIFICATION________________________________________ -->
+			<div
+				style="background: #02475E; margin-top: 10px; margin-bottom: 43px; height: 50px;">
+				<label style="color: white; font-size: x-large; padding-top: 5px;">Identity
+					Verification</label>
+			</div>
+			<div class="container" style="padding-bottom: 20px;">
+				<div class="row">
+					<!-- ________________________________________AADHAR CARD INPUT________________________________________ -->
+					<div class="col-2" style="padding-left: 0px;">
+						<div id="ddbox2" class="fieldback"
+							style="border: 0.5px solid lightsteelblue; width: 400px; height: 200px; max-width: 500px; align-items: center; justify-content: center; padding-top: 65px;">
+							<input type="file" id="aadharphoto" name="aadharphoto"
+								accept="image/png,image/jpg,image/jpeg" style="display: none;"
+								onchange="showAadharImage(this);" required> <label
+								for="aadharphoto" id="aadharlabel1" style="cursor: pointer;">Click
+								here & <br> Add Aadhar Card
+							</label> <label for="aadharphoto" id="aadharlabel2"
+								style="cursor: pointer;"> <img id="imagebox2" src="#">
+							</label>
+						</div>
+					</div>
+					<!-- ________________________________________PANCARD INPUT________________________________________ -->
+					<div class="col-2"
+						style="padding-left: 240px; padding-right: 447px;">
+						<div id="ddbox3" class="fieldback"
+							style="border: 0.5px solid lightsteelblue; width: 400px; height: 200px; max-width: 500px; align-items: center; justify-content: center; padding-top: 65px;">
+							<input type="file" id="panphoto" name="panphoto"
+								accept="image/png,image/jpg,image/jpeg" style="display: none;"
+								onchange="showPancardImage(this);" required> <label
+								for="panphoto" id="panlabel1" style="cursor: pointer;">Click
+								here & <br> Add Pancard
+							</label> <label for="panphoto" id="panlabel2" style="cursor: pointer;">
+								<img id="imagebox3" src="#">
+							</label>
+						</div>
+					</div>
+					<!-- ________________________________________INCOME CERTIFICATE INPUT________________________________________ -->
+					<div class="col-2">
+						<div id="ddbox4" class="fieldback"
+							style="border: 0.5px solid lightsteelblue; width: 400px; height: 200px; max-width: 500px; align-items: center; justify-content: center; padding-top: 65px;">
+							<input type="file" id="incomephoto" name="incomephoto" accept="image/png,image/jpg,image/jpeg" style="display: none;" onchange="showIncomeImage(this);" required> 
+							<label for="incomephoto" id="incomelabel1" style="cursor: pointer;">
+								Click here to <br> Add Income Certificate
+							</label> 
+							<label for="incomephoto" id="incomelabel2" style="cursor: pointer;"> 
+								<img id="imagebox4" src="#">
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+</html>
